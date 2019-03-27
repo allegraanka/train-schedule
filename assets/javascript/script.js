@@ -17,14 +17,14 @@ $("#add-train-btn").on("click", function (event) {
 
     var trainName = $("#train-name-input").val().trim();
     var destination = $("#destination-input").val().trim();
-    var firstTrain = moment($("#first-train-input").val().trim(), "MM/DD/YYYY").format("X");
+    var firstTrain = $("#first-train-input").val().trim();
     var frequency = $("#frequency-input").val().trim();
 
     var newTrain = {
-        name: trainName,
-        destination: destination,
-        firstTrain: firstTrain,
-        frequency: frequency
+      name: trainName,
+      destination: destination,
+      firstTrain: firstTrain,
+      frequency: frequency
     };
 
     database.ref().push(newTrain);
@@ -56,11 +56,37 @@ database.ref().on("child_added", function (childSnapshot) {
     console.log(frequency);
 
     var newRow = $("<tr>").append(
-        $("<td>").text(trainName),
-        $("<td>").text(destination),
-        $("<td>").text(firstTrain),
-        $("<td>").text(frequency)
+      $("<td>").text(trainName),
+      $("<td>").text(destination),
+      $("<td>").text(firstTrain),
+      $("<td>").text(frequency)
     );
 
     $("#train-schedule-body").append(newRow);
 });
+
+
+// was trying to follow this activity to incorporate the conversions above, before submitting the data to firebase, but i didn't quite get there.
+
+// var firstTimeConverted = moment(firstTime, "HH:mm");
+// console.log(firstTimeConverted);
+
+// // Current Time
+// var currentTime = moment();
+// console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+// // Difference between the times
+// var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+// console.log("DIFFERENCE IN TIME: " + diffTime);
+
+// // Time apart (remainder)
+// var tRemainder = diffTime % tFrequency;
+// console.log(tRemainder);
+
+// // Minute Until Train
+// var tMinutesTillTrain = tFrequency - tRemainder;
+// console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+// // Next Train
+// var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+// console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
